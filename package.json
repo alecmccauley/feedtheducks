@@ -1,0 +1,17 @@
+{
+  "name": "feedtheducks",
+  "version": "1.0.0",
+  "description": "Full Stack Developer Selection Test",
+  "main": "index.js",
+  "license": "MIT",
+  "private": true,
+  "workspaces": {
+    "packages": [
+      "packages/*"
+    ]
+  },
+  "devDependencies": {
+    "concurrently": "^5.2.0",
+    "cross-env": "^7.0.2"
+  }
+}
