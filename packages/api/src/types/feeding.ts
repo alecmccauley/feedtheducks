@@ -1,12 +1,20 @@
 import { ObjectType, Field, ID } from "type-graphql";
-import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  ObjectIdColumn,
+} from "typeorm";
 
 @ObjectType()
 @Entity()
 class Feeding {
   @Field((type) => ID)
-  @PrimaryGeneratedColumn()
-  id: string;
+  @ObjectIdColumn()
+  id!: string;
+
+  @ObjectIdColumn({ name: "id" })
+  _id!: string;
 
   @Field()
   @Column()

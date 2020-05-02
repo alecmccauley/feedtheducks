@@ -12,7 +12,8 @@
     "source-map-support": "^0.5.10",
     "type-graphql": "^0.17.6",
     "typedi": "^0.8.0",
-    "typeorm": "^0.2.24"
+    "typeorm": "^0.2.24",
+    "typeorm-typedi-extensions": "^0.2.3"
   },
   "devDependencies": {
     "@types/aws-lambda": "^8.10.17",
