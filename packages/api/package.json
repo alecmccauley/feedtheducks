@@ -5,11 +5,14 @@
   "main": "handler.js",
   "dependencies": {
     "apollo-server-lambda": "^2.12.0",
-    "graphql": "^15.0.0",
-    "source-map-support": "^0.5.10"
+    "graphql": "^14.1.1",
+    "reflect-metadata": "^0.1.13",
+    "source-map-support": "^0.5.10",
+    "type-graphql": "^0.17.6"
   },
   "devDependencies": {
     "@types/aws-lambda": "^8.10.17",
+    "@types/graphql": "^14.5.0",
     "@types/jest": "^25.2.1",
     "@types/node": "^10.12.18",
     "fork-ts-checker-webpack-plugin": "^3.0.1",

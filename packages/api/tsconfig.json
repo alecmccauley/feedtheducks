@@ -1,13 +1,16 @@
 {
   "compilerOptions": {
-    "lib": ["es2017"],
+    "lib": ["es2017", "esnext.asynciterable"],
     "removeComments": true,
     "moduleResolution": "node",
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "sourceMap": true,
     "target": "es2017",
-    "outDir": "lib"
+    "outDir": "lib",
+    "module": "commonjs",
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true
   },
   "include": ["./**/*.ts"],
   "exclude": [
