@@ -1,15 +1,16 @@
-import React from "react";
-import ApolloClient from "apollo-boost";
-import { ApolloProvider } from "react-apollo";
-import { ApolloProvider as ApolloHooksProvider } from "react-apollo-hooks";
-import FeedingsContainer from "./components/containers/FeedingsContainer";
-import AddFeeding from "./components/pages/AddFeeding";
 import {
+  createMuiTheme,
   ThemeProvider,
   useMediaQuery,
-  createMuiTheme,
 } from "@material-ui/core";
+import ApolloClient from "apollo-boost";
+import React from "react";
+import { ApolloProvider } from "react-apollo";
+import { ApolloProvider as ApolloHooksProvider } from "react-apollo-hooks";
 import AppRender from "./components/render/AppRender";
+import { Switch, Route, BrowserRouter as Router } from "react-router-dom";
+
+import Dashboard from "./components/pages/Dashboard";
 
 const client = new ApolloClient({
   uri: process.env.REACT_APP_API_URL,
@@ -39,10 +40,15 @@ function App() {
     <ThemeProvider theme={theme}>
       <ApolloProvider client={client}>
         <ApolloHooksProvider client={client}>
-          <AppRender>
-            <FeedingsContainer />
-            <AddFeeding />
-          </AppRender>
+          <Router>
+            <AppRender>
+              <Switch>
+                <Route path="/">
+                  <Dashboard />
+                </Route>
+              </Switch>
+            </AppRender>
+          </Router>
         </ApolloHooksProvider>
       </ApolloProvider>
     </ThemeProvider>

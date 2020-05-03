@@ -6,32 +6,44 @@ import NoteAddIcon from "@material-ui/icons/NoteAdd";
 import LoopIcon from "@material-ui/icons/Loop";
 import StorageIcon from "@material-ui/icons/Storage";
 import HomeIcon from "@material-ui/icons/Home";
+import { useHistory } from "react-router-dom";
 
-export const mainListItems = (
-  <div>
-    <ListItem button>
-      <ListItemIcon>
-        <HomeIcon />
-      </ListItemIcon>
-      <ListItemText primary="Dashboard" />
-    </ListItem>
-    <ListItem button>
-      <ListItemIcon>
-        <NoteAddIcon />
-      </ListItemIcon>
-      <ListItemText primary="Add Feeding" />
-    </ListItem>
-    <ListItem button>
-      <ListItemIcon>
-        <LoopIcon />
-      </ListItemIcon>
-      <ListItemText primary="Recurring Feedings" />
-    </ListItem>
-    <ListItem button>
-      <ListItemIcon>
-        <StorageIcon />
-      </ListItemIcon>
-      <ListItemText primary="All Feedings Data" />
-    </ListItem>
-  </div>
-);
+export const MainListItems = () => {
+  const history = useHistory();
+  const navigate = (route: string) => {
+    history.push(route);
+  };
+  return (
+    <div>
+      <ListItem
+        onClick={() => {
+          navigate("/");
+        }}
+        button
+      >
+        <ListItemIcon>
+          <HomeIcon />
+        </ListItemIcon>
+        <ListItemText primary="Dashboard" />
+      </ListItem>
+      <ListItem button>
+        <ListItemIcon>
+          <NoteAddIcon />
+        </ListItemIcon>
+        <ListItemText primary="Add Feeding" />
+      </ListItem>
+      <ListItem button>
+        <ListItemIcon>
+          <LoopIcon />
+        </ListItemIcon>
+        <ListItemText primary="Recurring Feedings" />
+      </ListItem>
+      <ListItem button>
+        <ListItemIcon>
+          <StorageIcon />
+        </ListItemIcon>
+        <ListItemText primary="All Feedings Data" />
+      </ListItem>
+    </div>
+  );
+};

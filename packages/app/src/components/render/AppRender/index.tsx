@@ -13,7 +13,7 @@ import FastfoodIcon from "@material-ui/icons/Fastfood";
 import MenuIcon from "@material-ui/icons/Menu";
 import clsx from "clsx";
 import React, { FunctionComponent } from "react";
-import { mainListItems } from "../../core/NavItems";
+import { MainListItems } from "../../core/NavItems";
 
 const drawerWidth = 240;
 
@@ -143,7 +143,9 @@ const AppRender: FunctionComponent = ({ children }) => {
           </IconButton>
         </div>
         <Divider />
-        <List>{mainListItems}</List>
+        <List>
+          <MainListItems />
+        </List>
       </Drawer>
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />
