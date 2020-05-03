@@ -4,7 +4,7 @@
   "description": "Fullstack Developer Selection Test",
   "main": "handler.js",
   "scripts": {
-    "start": "sls offline"
+    "start": "sls offline --httpPort 4000"
   },
   "dependencies": {
     "apollo-server-lambda": "^2.12.0",
