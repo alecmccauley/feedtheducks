@@ -17,6 +17,7 @@ import DateFnsUtils from "@date-io/date-fns";
 import UserFeedbackContainer from "./components/render/UserFeedbackRender";
 import mitt from "mitt";
 import { EmitterProvider } from "./contexts/emitter";
+import AllFeedings from "./components/pages/AllFeedings";
 
 const client = new ApolloClient({
   uri: process.env.REACT_APP_API_URL,
@@ -58,6 +59,9 @@ function App() {
                     </Route>
                     <Route path="/add">
                       <AddFeeding />
+                    </Route>
+                    <Route path="/all-feedings">
+                      <AllFeedings />
                     </Route>
                   </Switch>
                 </AppRender>

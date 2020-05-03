@@ -15,15 +15,17 @@ const useStyles = makeStyles((theme) => ({
 
 interface StandardPageProps {
   title: string;
+  largeWidth?: boolean;
 }
 
 const StandardPage: FunctionComponent<StandardPageProps> = ({
   children,
   title,
+  largeWidth,
 }) => {
   const classes = useStyles();
   return (
-    <Container maxWidth="md">
+    <Container maxWidth={largeWidth ? "lg" : "md"}>
       <CssBaseline />
       <Typography component="h1" variant="h4" align="center" gutterBottom>
         {title}

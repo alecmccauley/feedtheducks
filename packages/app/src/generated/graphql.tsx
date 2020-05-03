@@ -91,7 +91,11 @@ export type GetFeedingsQuery = (
   { __typename?: 'Query' }
   & { Feedings: Array<(
     { __typename?: 'Feeding' }
-    & Pick<Feeding, 'id' | 'numberOfDucks'>
+    & Pick<Feeding, 'id' | 'dateTime' | 'name' | 'howMuchFood' | 'typeOfFood' | 'numberOfDucks'>
+    & { location: (
+      { __typename?: 'Geo' }
+      & Pick<Geo, 'lat' | 'lng'>
+    ) }
   )> }
 );
 
@@ -157,7 +161,15 @@ export const GetFeedingsDocument = gql`
     query GetFeedings {
   Feedings {
     id
+    dateTime
+    name
+    howMuchFood
+    typeOfFood
     numberOfDucks
+    location {
+      lat
+      lng
+    }
   }
 }
     `;

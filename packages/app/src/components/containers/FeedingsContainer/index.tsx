@@ -1,7 +1,14 @@
-import * as React from "react";
+import React, { FunctionComponent } from "react";
+import { FeedingsRenderProps } from "../../render/FeedingsRender";
 import { useGetFeedingsQuery } from "./../../../generated/graphql";
 
-const FeedingsContainer = () => {
+interface FeedingsContainerProps {
+  Render: FunctionComponent<FeedingsRenderProps>;
+}
+
+const FeedingsContainer: FunctionComponent<FeedingsContainerProps> = ({
+  Render,
+}) => {
   const { data, error, loading } = useGetFeedingsQuery();
   if (loading) {
     return <div>Loading...</div>;
@@ -9,6 +16,6 @@ const FeedingsContainer = () => {
   if (error || !data) {
     return <div>ERROR</div>;
   }
-  return <div data-testid="temp">{JSON.stringify(data)}</div>;
+  return <Render feedings={data} />;
 };
 export default FeedingsContainer;

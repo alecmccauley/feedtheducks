@@ -43,7 +43,12 @@ export const MainListItems = () => {
         </ListItemIcon>
         <ListItemText primary="Recurring Feedings" />
       </ListItem>
-      <ListItem button>
+      <ListItem
+        button
+        onClick={() => {
+          navigate("/all-feedings");
+        }}
+      >
         <ListItemIcon>
           <StorageIcon />
         </ListItemIcon>

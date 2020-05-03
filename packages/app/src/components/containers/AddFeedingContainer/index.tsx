@@ -17,7 +17,7 @@ const AddFeedingContainer: FunctionComponent<AddFeedingContainerProps> = ({
   Render,
   onSuccess,
 }) => {
-  const [addFeeding, { data }] = useAddFeedingMutation();
+  const [addFeeding] = useAddFeedingMutation();
   const emitter = useContext(EmitterContext);
 
   const initialValues: AddFeedingInput = {
