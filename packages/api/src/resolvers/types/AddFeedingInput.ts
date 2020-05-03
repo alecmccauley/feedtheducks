@@ -21,6 +21,9 @@ class AddFeedingInput implements Partial<Feeding> {
 
   @Field()
   howMuchFood: number;
+
+  @Field()
+  typeOfFood: string;
 }
 
 export default AddFeedingInput;

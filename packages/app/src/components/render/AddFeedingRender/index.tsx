@@ -7,14 +7,8 @@ import PostAddIcon from "@material-ui/icons/PostAdd";
 import { Field, useFormikContext } from "formik";
 import { TextField } from "formik-material-ui";
 import React, { FunctionComponent } from "react";
-
+import { DateTimePicker } from "formik-material-ui-pickers";
 const useStyles = makeStyles((theme) => ({
-  paper: {
-    margin: theme.spacing(3),
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-  },
   avatar: {
     margin: theme.spacing(3),
   },
@@ -38,34 +32,68 @@ const AddFeedingRender: FunctionComponent = () => {
   const { isSubmitting, submitForm } = useFormikContext();
 
   return (
-    <div className={classes.paper}>
-      <Typography variant="h6">Feed the Ducks!</Typography>
-      <div className={classes.form}>
-        <Grid container spacing={2}>
-          <Grid item xs={12}>
-            <Field
-              component={TextField}
-              name="numberOfDucks"
-              label="How many ducks did you feed?"
-              rowsMax="10"
-              variant="outlined"
-            />
-          </Grid>
+    <div className={classes.form}>
+      <Grid container spacing={2}>
+        <Grid item xs={12}>
+          <Field
+            component={TextField}
+            name="name"
+            label="What's your name?"
+            variant="outlined"
+            fullWidth
+          />
         </Grid>
-        <Box textAlign="center">
-          <Button
-            variant="contained"
-            color="secondary"
-            disabled={isSubmitting}
-            onClick={submitForm}
-            className={classes.submit}
-            size="large"
-            startIcon={<PostAddIcon />}
-          >
-            Record Feeding
-          </Button>
-        </Box>
-      </div>
+        <Grid item xs={12}>
+          <Field
+            component={TextField}
+            name="numberOfDucks"
+            label="How many ducks did you feed?"
+            variant="outlined"
+            type="number"
+            fullWidth
+          />
+        </Grid>
+        <Grid item xs={12}>
+          <Field
+            component={TextField}
+            name="howMuchFood"
+            label="How much food did you feed them (in g)?"
+            variant="outlined"
+            type="number"
+            fullWidth
+          />
+        </Grid>
+        <Grid item xs={12}>
+          <Field
+            component={TextField}
+            name="typeOfFood"
+            label="What kind of food did you feed them?"
+            variant="outlined"
+            fullWidth
+          />
+        </Grid>
+        <Grid item xs={12}>
+          <Field
+            component={DateTimePicker}
+            label="When did you feed them?"
+            name="dateTime"
+            fullWidth
+          />
+        </Grid>
+      </Grid>
+      <Box textAlign="center">
+        <Button
+          variant="contained"
+          color="secondary"
+          disabled={isSubmitting}
+          onClick={submitForm}
+          className={classes.submit}
+          size="large"
+          startIcon={<PostAddIcon />}
+        >
+          Record Feeding
+        </Button>
+      </Box>
     </div>
   );
 };

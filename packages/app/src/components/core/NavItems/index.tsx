@@ -26,7 +26,12 @@ export const MainListItems = () => {
         </ListItemIcon>
         <ListItemText primary="Dashboard" />
       </ListItem>
-      <ListItem button>
+      <ListItem
+        button
+        onClick={() => {
+          navigate("/add");
+        }}
+      >
         <ListItemIcon>
           <NoteAddIcon />
         </ListItemIcon>

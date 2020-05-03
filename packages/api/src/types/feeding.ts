@@ -38,6 +38,10 @@ class Feeding {
   @Column()
   name: string;
 
+  @Field()
+  @Column()
+  typeOfFood: string;
+
   @CreateDateColumn()
   createdAt: string;
 

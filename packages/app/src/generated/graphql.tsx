@@ -1,6 +1,6 @@
 import gql from 'graphql-tag';
-import * as React from 'react';
 import * as ApolloReactCommon from '@apollo/react-common';
+import * as React from 'react';
 import * as ApolloReactComponents from '@apollo/react-components';
 import * as ApolloReactHoc from '@apollo/react-hoc';
 import * as ApolloReactHooks from '@apollo/react-hooks';
@@ -13,6 +13,8 @@ export type Scalars = {
   Boolean: boolean;
   Int: number;
   Float: number;
+  /** The javascript `Date` as string. Type represents date and time as the ISO Date string. */
+  DateTime: any;
 };
 
 export type Query = {
@@ -30,12 +32,57 @@ export type Feeding = {
    __typename?: 'Feeding';
   id: Scalars['ID'];
   numberOfDucks: Scalars['Float'];
+  dateTime: Scalars['DateTime'];
+  location: Geo;
+  howMuchFood: Scalars['Float'];
+  name: Scalars['String'];
+  typeOfFood: Scalars['String'];
+};
+
+
+export type Geo = {
+   __typename?: 'Geo';
+  lat: Scalars['Float'];
+  lng: Scalars['Float'];
 };
 
 export type Mutation = {
    __typename?: 'Mutation';
   addFeeding: Feeding;
 };
+
+
+export type MutationAddFeedingArgs = {
+  data: AddFeedingInput;
+};
+
+/** New feeding data */
+export type AddFeedingInput = {
+  name: Scalars['String'];
+  numberOfDucks: Scalars['Float'];
+  dateTime: Scalars['DateTime'];
+  lat: Scalars['Float'];
+  lng: Scalars['Float'];
+  howMuchFood: Scalars['Float'];
+  typeOfFood: Scalars['String'];
+};
+
+export type AddFeedingMutationVariables = {
+  data: AddFeedingInput;
+};
+
+
+export type AddFeedingMutation = (
+  { __typename?: 'Mutation' }
+  & { addFeeding: (
+    { __typename?: 'Feeding' }
+    & Pick<Feeding, 'id' | 'numberOfDucks' | 'name'>
+    & { location: (
+      { __typename?: 'Geo' }
+      & Pick<Geo, 'lat' | 'lng'>
+    ) }
+  ) }
+);
 
 export type GetFeedingsQueryVariables = {};
 
@@ -49,6 +96,63 @@ export type GetFeedingsQuery = (
 );
 
 
+export const AddFeedingDocument = gql`
+    mutation AddFeeding($data: AddFeedingInput!) {
+  addFeeding(data: $data) {
+    id
+    numberOfDucks
+    location {
+      lat
+      lng
+    }
+    name
+  }
+}
+    `;
+export type AddFeedingMutationFn = ApolloReactCommon.MutationFunction<AddFeedingMutation, AddFeedingMutationVariables>;
+export type AddFeedingComponentProps = Omit<ApolloReactComponents.MutationComponentOptions<AddFeedingMutation, AddFeedingMutationVariables>, 'mutation'>;
+
+    export const AddFeedingComponent = (props: AddFeedingComponentProps) => (
+      <ApolloReactComponents.Mutation<AddFeedingMutation, AddFeedingMutationVariables> mutation={AddFeedingDocument} {...props} />
+    );
+    
+export type AddFeedingProps<TChildProps = {}, TDataName extends string = 'mutate'> = {
+      [key in TDataName]: ApolloReactCommon.MutationFunction<AddFeedingMutation, AddFeedingMutationVariables>
+    } & TChildProps;
+export function withAddFeeding<TProps, TChildProps = {}, TDataName extends string = 'mutate'>(operationOptions?: ApolloReactHoc.OperationOption<
+  TProps,
+  AddFeedingMutation,
+  AddFeedingMutationVariables,
+  AddFeedingProps<TChildProps, TDataName>>) {
+    return ApolloReactHoc.withMutation<TProps, AddFeedingMutation, AddFeedingMutationVariables, AddFeedingProps<TChildProps, TDataName>>(AddFeedingDocument, {
+      alias: 'addFeeding',
+      ...operationOptions
+    });
+};
+
+/**
+ * __useAddFeedingMutation__
+ *
+ * To run a mutation, you first call `useAddFeedingMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useAddFeedingMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [addFeedingMutation, { data, loading, error }] = useAddFeedingMutation({
+ *   variables: {
+ *      data: // value for 'data'
+ *   },
+ * });
+ */
+export function useAddFeedingMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<AddFeedingMutation, AddFeedingMutationVariables>) {
+        return ApolloReactHooks.useMutation<AddFeedingMutation, AddFeedingMutationVariables>(AddFeedingDocument, baseOptions);
+      }
+export type AddFeedingMutationHookResult = ReturnType<typeof useAddFeedingMutation>;
+export type AddFeedingMutationResult = ApolloReactCommon.MutationResult<AddFeedingMutation>;
+export type AddFeedingMutationOptions = ApolloReactCommon.BaseMutationOptions<AddFeedingMutation, AddFeedingMutationVariables>;
 export const GetFeedingsDocument = gql`
     query GetFeedings {
   Feedings {

@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
 const Dashboard = () => {
   const classes = useStyles();
   return (
-    <StandardPage>
+    <StandardPage title="Welcome">
       <Grid container spacing={4}>
         <Grid item md={3} sm={12}>
           <div className={classes.duckContainer}>

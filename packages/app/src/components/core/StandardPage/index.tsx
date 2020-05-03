@@ -13,13 +13,20 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const StandardPage: FunctionComponent = ({ children }) => {
+interface StandardPageProps {
+  title: string;
+}
+
+const StandardPage: FunctionComponent<StandardPageProps> = ({
+  children,
+  title,
+}) => {
   const classes = useStyles();
   return (
     <Container maxWidth="md">
       <CssBaseline />
       <Typography component="h1" variant="h4" align="center" gutterBottom>
-        Welcome
+        {title}
       </Typography>
       <div className={classes.contentContainer}>{children}</div>
     </Container>

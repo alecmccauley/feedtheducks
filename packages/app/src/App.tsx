@@ -11,7 +11,9 @@ import AppRender from "./components/render/AppRender";
 import { Switch, Route, BrowserRouter as Router } from "react-router-dom";
 
 import Dashboard from "./components/pages/Dashboard";
-
+import AddFeeding from "./components/pages/AddFeeding";
+import { MuiPickersUtilsProvider } from "@material-ui/pickers";
+import DateFnsUtils from "@date-io/date-fns";
 const client = new ApolloClient({
   uri: process.env.REACT_APP_API_URL,
 });
@@ -40,15 +42,20 @@ function App() {
     <ThemeProvider theme={theme}>
       <ApolloProvider client={client}>
         <ApolloHooksProvider client={client}>
-          <Router>
-            <AppRender>
-              <Switch>
-                <Route path="/">
-                  <Dashboard />
-                </Route>
-              </Switch>
-            </AppRender>
-          </Router>
+          <MuiPickersUtilsProvider utils={DateFnsUtils}>
+            <Router>
+              <AppRender>
+                <Switch>
+                  <Route path="/" exact>
+                    <Dashboard />
+                  </Route>
+                  <Route path="/add">
+                    <AddFeeding />
+                  </Route>
+                </Switch>
+              </AppRender>
+            </Router>
+          </MuiPickersUtilsProvider>
         </ApolloHooksProvider>
       </ApolloProvider>
     </ThemeProvider>

@@ -1,11 +1,10 @@
 import { Formik } from "formik";
 import React, { FunctionComponent } from "react";
 import validation from "./validation";
-
-// TEMP WIL MOVE
-interface AddFeedingInput {
-  numberOfDucks: number;
-}
+import {
+  AddFeedingInput,
+  useAddFeedingMutation,
+} from "../../../generated/graphql";
 
 export interface AddFeedingContainerProps {
   Render: FunctionComponent;
@@ -14,14 +13,30 @@ export interface AddFeedingContainerProps {
 const AddFeedingContainer: FunctionComponent<AddFeedingContainerProps> = ({
   Render,
 }) => {
+  const [addFeeding, { data }] = useAddFeedingMutation();
+
   const initialValues: AddFeedingInput = {
+    name: "",
     numberOfDucks: 0,
+    lat: 0,
+    lng: 0,
+    dateTime: new Date(),
+    howMuchFood: 0,
+    typeOfFood: "",
   };
 
-  const onSubmit = (
+  const onSubmit = async (
     values: AddFeedingInput,
     setSubmitting: (isSubmitting: boolean) => void
-  ) => {};
+  ) => {
+    console.log(values);
+    await addFeeding({
+      variables: {
+        data: values,
+      },
+    });
+    setSubmitting(false);
+  };
 
   return (
     <Formik
