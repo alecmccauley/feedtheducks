@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "Fullstack Developer Selection Test",
   "main": "handler.js",
+  "scripts": {
+    "start": "sls offline"
+  },
   "dependencies": {
     "apollo-server-lambda": "^2.12.0",
     "graphql": "^14.1.1",
