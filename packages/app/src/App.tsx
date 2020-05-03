@@ -14,6 +14,10 @@ import Dashboard from "./components/pages/Dashboard";
 import AddFeeding from "./components/pages/AddFeeding";
 import { MuiPickersUtilsProvider } from "@material-ui/pickers";
 import DateFnsUtils from "@date-io/date-fns";
+import UserFeedbackContainer from "./components/render/UserFeedbackRender";
+import mitt from "mitt";
+import { EmitterProvider } from "./contexts/emitter";
+
 const client = new ApolloClient({
   uri: process.env.REACT_APP_API_URL,
 });
@@ -38,27 +42,32 @@ function App() {
     [prefersDarkMode]
   );
 
+  const emitter: mitt.Emitter = mitt();
+
   return (
-    <ThemeProvider theme={theme}>
-      <ApolloProvider client={client}>
-        <ApolloHooksProvider client={client}>
-          <MuiPickersUtilsProvider utils={DateFnsUtils}>
-            <Router>
-              <AppRender>
-                <Switch>
-                  <Route path="/" exact>
-                    <Dashboard />
-                  </Route>
-                  <Route path="/add">
-                    <AddFeeding />
-                  </Route>
-                </Switch>
-              </AppRender>
-            </Router>
-          </MuiPickersUtilsProvider>
-        </ApolloHooksProvider>
-      </ApolloProvider>
-    </ThemeProvider>
+    <EmitterProvider value={emitter}>
+      <ThemeProvider theme={theme}>
+        <ApolloProvider client={client}>
+          <ApolloHooksProvider client={client}>
+            <MuiPickersUtilsProvider utils={DateFnsUtils}>
+              <Router>
+                <AppRender>
+                  <Switch>
+                    <Route path="/" exact>
+                      <Dashboard />
+                    </Route>
+                    <Route path="/add">
+                      <AddFeeding />
+                    </Route>
+                  </Switch>
+                </AppRender>
+              </Router>
+              <UserFeedbackContainer />
+            </MuiPickersUtilsProvider>
+          </ApolloHooksProvider>
+        </ApolloProvider>
+      </ThemeProvider>
+    </EmitterProvider>
   );
 }
 

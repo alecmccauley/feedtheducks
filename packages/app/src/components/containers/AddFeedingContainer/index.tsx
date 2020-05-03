@@ -1,19 +1,24 @@
 import { Formik } from "formik";
-import React, { FunctionComponent } from "react";
-import validation from "./validation";
+import React, { FunctionComponent, useContext } from "react";
 import {
   AddFeedingInput,
   useAddFeedingMutation,
 } from "../../../generated/graphql";
+import validation from "./validation";
+import showUserFeedback from "../../../helpers/showUserFeedback";
+import EmitterContext from "../../../contexts/emitter";
 
 export interface AddFeedingContainerProps {
   Render: FunctionComponent;
+  onSuccess: () => void;
 }
 
 const AddFeedingContainer: FunctionComponent<AddFeedingContainerProps> = ({
   Render,
+  onSuccess,
 }) => {
   const [addFeeding, { data }] = useAddFeedingMutation();
+  const emitter = useContext(EmitterContext);
 
   const initialValues: AddFeedingInput = {
     name: "",
@@ -30,12 +35,20 @@ const AddFeedingContainer: FunctionComponent<AddFeedingContainerProps> = ({
     setSubmitting: (isSubmitting: boolean) => void
   ) => {
     console.log(values);
-    await addFeeding({
-      variables: {
-        data: values,
-      },
-    });
+    try {
+      await addFeeding({
+        variables: {
+          data: values,
+        },
+      });
+    } catch {
+      setSubmitting(false);
+      if (emitter) showUserFeedback(emitter, "Something went wrong.", "error");
+    }
     setSubmitting(false);
+    onSuccess();
+    if (emitter)
+      showUserFeedback(emitter, "Successfully recorded feeding!", "success");
   };
 
   return (

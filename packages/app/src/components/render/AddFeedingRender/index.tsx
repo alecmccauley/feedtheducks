@@ -2,16 +2,13 @@ import Box from "@material-ui/core/Box";
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core/styles";
-import Typography from "@material-ui/core/Typography";
 import PostAddIcon from "@material-ui/icons/PostAdd";
 import { Field, useFormikContext } from "formik";
 import { TextField } from "formik-material-ui";
-import React, { FunctionComponent } from "react";
 import { DateTimePicker } from "formik-material-ui-pickers";
+import React, { FunctionComponent, useState } from "react";
+import { Typography, CircularProgress } from "@material-ui/core";
 const useStyles = makeStyles((theme) => ({
-  avatar: {
-    margin: theme.spacing(3),
-  },
   form: {
     width: "100%", // Fix IE 11 issue.
     marginTop: theme.spacing(3),
@@ -19,17 +16,32 @@ const useStyles = makeStyles((theme) => ({
   submit: {
     margin: theme.spacing(3, 1, 2),
   },
-  subtext: {
-    marginTop: theme.spacing(3),
-  },
-  pickMenu: {
-    width: "100%",
+  loadingLocation: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
   },
 }));
 
 const AddFeedingRender: FunctionComponent = () => {
+  const [loadingLocation, setLoadingLocation] = useState(false);
   const classes = useStyles();
-  const { isSubmitting, submitForm } = useFormikContext();
+  const { isSubmitting, submitForm, setFieldValue } = useFormikContext();
+
+  const getUserLocation = () => {
+    setLoadingLocation(true);
+    navigator.geolocation.getCurrentPosition(
+      (p) => {
+        setFieldValue("lat", p.coords.latitude);
+        setFieldValue("lng", p.coords.longitude);
+        setLoadingLocation(false);
+      },
+      () => {
+        //handle error
+        setLoadingLocation(false);
+      }
+    );
+  };
 
   return (
     <div className={classes.form}>
@@ -72,6 +84,48 @@ const AddFeedingRender: FunctionComponent = () => {
             fullWidth
           />
         </Grid>
+        <Grid item xs={12}>
+          Where did you feed them?
+          <Typography variant="caption" color="textSecondary" component="div">
+            Note: In real life we'd have other ways to locate yourself,
+            autocomplete using the Google Maps Geolocate API. Kept simpl for
+            demo, click the "Locate Me" button to populate your current
+            location.
+          </Typography>
+        </Grid>
+        {loadingLocation ? (
+          <>
+            <Grid xs={12} className={classes.loadingLocation}>
+              <CircularProgress />
+            </Grid>
+          </>
+        ) : (
+          <>
+            <Grid item xs={4}>
+              <Field
+                component={TextField}
+                name="lat"
+                label="Latitude"
+                variant="outlined"
+                fullWidth
+              />
+            </Grid>
+            <Grid item xs={4}>
+              <Field
+                component={TextField}
+                name="lng"
+                label="Longitude"
+                variant="outlined"
+                fullWidth
+              />
+            </Grid>
+            <Grid item xs={4}>
+              <Button color="primary" onClick={getUserLocation}>
+                Locate Me
+              </Button>
+            </Grid>
+          </>
+        )}
         <Grid item xs={12}>
           <Field
             component={DateTimePicker}
