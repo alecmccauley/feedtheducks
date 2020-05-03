@@ -2,6 +2,8 @@ import { Arg, Int, Mutation, Query, Resolver } from "type-graphql";
 import { Repository } from "typeorm";
 import { InjectRepository } from "typeorm-typedi-extensions";
 import Feeding from "../types/feeding";
+import AddFeedingInput from "./types/AddFeedingInput";
+import { uuid } from "uuidv4";
 
 @Resolver((of) => Feeding)
 export class FeedingResolver {
@@ -21,10 +23,14 @@ export class FeedingResolver {
   }
 
   @Mutation((returns) => Feeding)
-  async addFeeding(): Promise<Feeding> {
+  async addFeeding(@Arg("data") newFeeding: AddFeedingInput): Promise<Feeding> {
     const Feeding = this.FeedingRepository.create({
-      _id: "test",
-      numberOfDucks: 15,
+      _id: uuid(),
+      ...newFeeding,
+      location: {
+        lat: newFeeding.lat,
+        lng: newFeeding.lng,
+      },
     });
     return await this.FeedingRepository.save(Feeding);
   }
