@@ -2,6 +2,7 @@ import React, { FunctionComponent, useContext } from "react";
 import {
   useGetRecurringQuery,
   useToggleFeedingMutation,
+  useDailyFeedingMutation,
 } from "./../../../generated/graphql";
 import { CircularProgress } from "@material-ui/core";
 import { RecurringFeedingsRenderProps } from "../../render/RecurringFeedingsRender";
@@ -17,7 +18,24 @@ const RecurringFeedingsContainer: FunctionComponent<RecurringFeedingsContainerPr
 }) => {
   const { data, error, loading } = useGetRecurringQuery();
   const [toggleActive] = useToggleFeedingMutation();
+  const [triggerFeedings] = useDailyFeedingMutation();
   const emitter = useContext(EmitterContext);
+
+  const onTriggerDailyFeedings = async () => {
+    let result;
+    try {
+      result = await triggerFeedings();
+    } catch {
+      if (emitter) showUserFeedback(emitter, "Something went wrong.", "error");
+    }
+    if (emitter)
+      showUserFeedback(
+        emitter,
+        `${result?.data?.TriggerRecurringFeedings} daily feedings were triggered!`,
+        "success"
+      );
+  };
+
   const onToggle = async (id: string) => {
     let result;
     try {
@@ -40,6 +58,12 @@ const RecurringFeedingsContainer: FunctionComponent<RecurringFeedingsContainerPr
   if (error || !data) {
     return <div>ERROR</div>;
   }
-  return <Render recurringFeedings={data} onToggle={onToggle} />;
+  return (
+    <Render
+      recurringFeedings={data}
+      onToggle={onToggle}
+      onTriggerDailyFeedings={onTriggerDailyFeedings}
+    />
+  );
 };
 export default RecurringFeedingsContainer;

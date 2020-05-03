@@ -9,6 +9,9 @@ import {
   Tooltip,
   IconButton,
   Switch,
+  Grid,
+  Button,
+  Box,
 } from "@material-ui/core";
 import MuiAlert from "@material-ui/lab/Alert";
 import React, { FunctionComponent, useState } from "react";
@@ -23,16 +26,39 @@ import { formatRelative } from "date-fns";
 export interface RecurringFeedingsRenderProps {
   recurringFeedings: GetRecurringQuery;
   onToggle: (id: string) => Promise<boolean | undefined>;
+  onTriggerDailyFeedings: () => Promise<void>;
 }
 
 const RecurringFeedingsRender: FunctionComponent<RecurringFeedingsRenderProps> = ({
   recurringFeedings,
   onToggle,
+  onTriggerDailyFeedings,
 }) => {
   const [updatedSwitches, setUpdatedSwitches] = useState<any>({});
 
   return (
-    <StandardPage title="All Feedings" largeWidth>
+    <StandardPage title="Recurring Feedings" largeWidth>
+      <Box mb={4}>
+        <Grid container spacing={4}>
+          <Grid item sm={3}>
+            <Button
+              fullWidth
+              variant="contained"
+              color="secondary"
+              onClick={onTriggerDailyFeedings}
+            >
+              Trigger Daily Feedings
+            </Button>
+          </Grid>
+          <Grid item sm={9}>
+            <MuiAlert severity="info">
+              In real life there would be a running scheduled Lambda function,
+              cronjob etc. to trigger the recurring feedings to fire everyday.
+              To simulate that for this demo, press the button.
+            </MuiAlert>
+          </Grid>
+        </Grid>
+      </Box>
       <MuiAlert severity="info">
         In real life we would have pagination, the ability to sort etc. that has
         been omitted for scope of the assignment.

@@ -63,6 +63,7 @@ export type Mutation = {
    __typename?: 'Mutation';
   addFeeding: Feeding;
   ToggleRecurringFeedingActive: Scalars['Boolean'];
+  TriggerRecurringFeedings: Scalars['Float'];
 };
 
 
@@ -142,6 +143,14 @@ export type ToggleFeedingMutationVariables = {
 export type ToggleFeedingMutation = (
   { __typename?: 'Mutation' }
   & Pick<Mutation, 'ToggleRecurringFeedingActive'>
+);
+
+export type DailyFeedingMutationVariables = {};
+
+
+export type DailyFeedingMutation = (
+  { __typename?: 'Mutation' }
+  & Pick<Mutation, 'TriggerRecurringFeedings'>
 );
 
 
@@ -369,3 +378,51 @@ export function useToggleFeedingMutation(baseOptions?: ApolloReactHooks.Mutation
 export type ToggleFeedingMutationHookResult = ReturnType<typeof useToggleFeedingMutation>;
 export type ToggleFeedingMutationResult = ApolloReactCommon.MutationResult<ToggleFeedingMutation>;
 export type ToggleFeedingMutationOptions = ApolloReactCommon.BaseMutationOptions<ToggleFeedingMutation, ToggleFeedingMutationVariables>;
+export const DailyFeedingDocument = gql`
+    mutation DailyFeeding {
+  TriggerRecurringFeedings
+}
+    `;
+export type DailyFeedingMutationFn = ApolloReactCommon.MutationFunction<DailyFeedingMutation, DailyFeedingMutationVariables>;
+export type DailyFeedingComponentProps = Omit<ApolloReactComponents.MutationComponentOptions<DailyFeedingMutation, DailyFeedingMutationVariables>, 'mutation'>;
+
+    export const DailyFeedingComponent = (props: DailyFeedingComponentProps) => (
+      <ApolloReactComponents.Mutation<DailyFeedingMutation, DailyFeedingMutationVariables> mutation={DailyFeedingDocument} {...props} />
+    );
+    
+export type DailyFeedingProps<TChildProps = {}, TDataName extends string = 'mutate'> = {
+      [key in TDataName]: ApolloReactCommon.MutationFunction<DailyFeedingMutation, DailyFeedingMutationVariables>
+    } & TChildProps;
+export function withDailyFeeding<TProps, TChildProps = {}, TDataName extends string = 'mutate'>(operationOptions?: ApolloReactHoc.OperationOption<
+  TProps,
+  DailyFeedingMutation,
+  DailyFeedingMutationVariables,
+  DailyFeedingProps<TChildProps, TDataName>>) {
+    return ApolloReactHoc.withMutation<TProps, DailyFeedingMutation, DailyFeedingMutationVariables, DailyFeedingProps<TChildProps, TDataName>>(DailyFeedingDocument, {
+      alias: 'dailyFeeding',
+      ...operationOptions
+    });
+};
+
+/**
+ * __useDailyFeedingMutation__
+ *
+ * To run a mutation, you first call `useDailyFeedingMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDailyFeedingMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [dailyFeedingMutation, { data, loading, error }] = useDailyFeedingMutation({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useDailyFeedingMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<DailyFeedingMutation, DailyFeedingMutationVariables>) {
+        return ApolloReactHooks.useMutation<DailyFeedingMutation, DailyFeedingMutationVariables>(DailyFeedingDocument, baseOptions);
+      }
+export type DailyFeedingMutationHookResult = ReturnType<typeof useDailyFeedingMutation>;
+export type DailyFeedingMutationResult = ApolloReactCommon.MutationResult<DailyFeedingMutation>;
+export type DailyFeedingMutationOptions = ApolloReactCommon.BaseMutationOptions<DailyFeedingMutation, DailyFeedingMutationVariables>;
