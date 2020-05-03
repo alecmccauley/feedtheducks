@@ -9,6 +9,6 @@ const FeedingsContainer = () => {
   if (error || !data) {
     return <div>ERROR</div>;
   }
-  return <div>{JSON.stringify(data)}</div>;
+  return <div data-testid="temp">{JSON.stringify(data)}</div>;
 };
 export default FeedingsContainer;
