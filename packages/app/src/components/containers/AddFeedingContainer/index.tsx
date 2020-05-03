@@ -28,6 +28,7 @@ const AddFeedingContainer: FunctionComponent<AddFeedingContainerProps> = ({
     dateTime: new Date(),
     howMuchFood: 0,
     typeOfFood: "",
+    recurring: false,
   };
 
   const onSubmit = async (

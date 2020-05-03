@@ -6,6 +6,7 @@ import {
   getConnectionManager,
 } from "typeorm";
 import Feeding from "./src/types/feeding";
+import RecurringFeeding from "./src/types/recurringFeeding";
 
 // this is a custom class used to handle TypeORM in the serverless environment
 export class Database {
@@ -38,7 +39,7 @@ export class Database {
         synchronize: true,
         logging: true,
         url: process.env.DB_URL,
-        entities: [Feeding],
+        entities: [Feeding, RecurringFeeding],
       };
       connection = await createConnection(connectionOptions);
     }

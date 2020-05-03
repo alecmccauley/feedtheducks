@@ -24,6 +24,9 @@ class AddFeedingInput implements Partial<Feeding> {
 
   @Field()
   typeOfFood: string;
+
+  @Field()
+  recurring: true;
 }
 
 export default AddFeedingInput;

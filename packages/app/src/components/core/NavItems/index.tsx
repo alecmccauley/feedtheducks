@@ -37,7 +37,12 @@ export const MainListItems = () => {
         </ListItemIcon>
         <ListItemText primary="Add Feeding" />
       </ListItem>
-      <ListItem button>
+      <ListItem
+        button
+        onClick={() => {
+          navigate("/recurring");
+        }}
+      >
         <ListItemIcon>
           <LoopIcon />
         </ListItemIcon>

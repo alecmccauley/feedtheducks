@@ -18,6 +18,7 @@ import UserFeedbackContainer from "./components/render/UserFeedbackRender";
 import mitt from "mitt";
 import { EmitterProvider } from "./contexts/emitter";
 import AllFeedings from "./components/pages/AllFeedings";
+import RecurringFeedings from "./components/pages/RecurringFeedings";
 
 const client = new ApolloClient({
   uri: process.env.REACT_APP_API_URL,
@@ -62,6 +63,9 @@ function App() {
                     </Route>
                     <Route path="/all-feedings">
                       <AllFeedings />
+                    </Route>
+                    <Route path="/recurring">
+                      <RecurringFeedings />
                     </Route>
                   </Switch>
                 </AppRender>

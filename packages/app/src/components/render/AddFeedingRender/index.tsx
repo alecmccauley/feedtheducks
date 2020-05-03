@@ -4,7 +4,7 @@ import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core/styles";
 import PostAddIcon from "@material-ui/icons/PostAdd";
 import { Field, useFormikContext } from "formik";
-import { TextField } from "formik-material-ui";
+import { TextField, Switch } from "formik-material-ui";
 import { DateTimePicker } from "formik-material-ui-pickers";
 import React, { FunctionComponent, useState } from "react";
 import { Typography, CircularProgress } from "@material-ui/core";
@@ -134,12 +134,16 @@ const AddFeedingRender: FunctionComponent = () => {
             fullWidth
           />
         </Grid>
+        <Grid item xs={12}>
+          <Field component={Switch} name="recurring" />
+          <Typography variant="caption">Make recurring daily?</Typography>
+        </Grid>
       </Grid>
       <Box textAlign="center">
         <Button
           variant="contained"
           color="secondary"
-          disabled={isSubmitting}
+          disabled={isSubmitting || loadingLocation}
           onClick={submitForm}
           className={classes.submit}
           size="large"
