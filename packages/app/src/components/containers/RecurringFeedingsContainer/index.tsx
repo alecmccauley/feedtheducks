@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useContext } from "react";
+import React, { FunctionComponent, useContext, useEffect } from "react";
 import {
   useGetRecurringQuery,
   useToggleFeedingMutation,
@@ -16,10 +16,14 @@ interface RecurringFeedingsContainerProps {
 const RecurringFeedingsContainer: FunctionComponent<RecurringFeedingsContainerProps> = ({
   Render,
 }) => {
-  const { data, error, loading } = useGetRecurringQuery();
+  const { data, error, loading, refetch } = useGetRecurringQuery();
   const [toggleActive] = useToggleFeedingMutation();
   const [triggerFeedings] = useDailyFeedingMutation();
   const emitter = useContext(EmitterContext);
+
+  useEffect(() => {
+    refetch();
+  }, [refetch]);
 
   const onTriggerDailyFeedings = async () => {
     let result;

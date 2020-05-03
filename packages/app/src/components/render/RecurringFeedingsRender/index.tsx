@@ -1,5 +1,10 @@
 import {
+  Box,
+  Button,
+  Grid,
+  IconButton,
   Paper,
+  Switch,
   Table,
   TableBody,
   TableCell,
@@ -7,21 +12,12 @@ import {
   TableHead,
   TableRow,
   Tooltip,
-  IconButton,
-  Switch,
-  Grid,
-  Button,
-  Box,
 } from "@material-ui/core";
+import ExploreIcon from "@material-ui/icons/Explore";
 import MuiAlert from "@material-ui/lab/Alert";
 import React, { FunctionComponent, useState } from "react";
 import StandardPage from "../../core/StandardPage";
-import {
-  GetFeedingsQuery,
-  GetRecurringQuery,
-} from "./../../../generated/graphql";
-import ExploreIcon from "@material-ui/icons/Explore";
-import { formatRelative } from "date-fns";
+import { GetRecurringQuery } from "./../../../generated/graphql";
 
 export interface RecurringFeedingsRenderProps {
   recurringFeedings: GetRecurringQuery;
