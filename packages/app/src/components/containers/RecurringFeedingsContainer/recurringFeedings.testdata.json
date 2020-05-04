@@ -1,0 +1,16 @@
+{
+  "data": {
+    "RecurringFeedings": [
+      {
+        "id": "76643355-d32a-42c8-8366-c606ca022f6b",
+        "active": true,
+        "name": "Person 1",
+        "location": {
+          "lat": 51.049267199999996,
+          "lng": -114.11128319999999
+        },
+        "numberOfDucks": 28
+      }
+    ]
+  }
+}

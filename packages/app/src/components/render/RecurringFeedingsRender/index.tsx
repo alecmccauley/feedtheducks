@@ -87,6 +87,7 @@ const RecurringFeedingsRender: FunctionComponent<RecurringFeedingsRenderProps> =
                 </TableCell>
                 <TableCell>
                   <Switch
+                    data-testid="active-switch"
                     checked={
                       updatedSwitches[row.id] !== undefined
                         ? updatedSwitches[row.id]

@@ -57,7 +57,7 @@ const RecurringFeedingsContainer: FunctionComponent<RecurringFeedingsContainerPr
   };
 
   if (loading) {
-    return <CircularProgress />;
+    return <CircularProgress data-testid="loading" />;
   }
   if (error || !data) {
     return <div>ERROR</div>;

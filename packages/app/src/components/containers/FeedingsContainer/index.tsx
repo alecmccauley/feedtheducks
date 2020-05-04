@@ -17,7 +17,7 @@ const FeedingsContainer: FunctionComponent<FeedingsContainerProps> = ({
   }, [refetch]);
 
   if (loading) {
-    return <CircularProgress />;
+    return <CircularProgress data-testid="loading" />;
   }
 
   if (error || !data) {

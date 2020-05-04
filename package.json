@@ -1,0 +1,24 @@
+{
+  "name": "feedtheducls",
+  "version": "1.0.0",
+  "description": "Full Stack Developer Selection Test.",
+  "main": "index.js",
+  "author": "",
+  "license": "MIT",
+  "private": true,
+  "workspaces": {
+    "packages": [
+      "packages/*"
+    ]
+  },
+  "scripts": {
+    "app": "yarn workspace app start",
+    "api": "yarn workspace api dev",
+    "dev": "concurrently --kill-others-on-fail \"yarn app\"  \"yarn api\"",
+    "test": "yarn workspaces run test"
+  },
+  "devDependencies": {
+    "concurrently": "^5.2.0",
+    "cross-env": "^7.0.2"
+  }
+}

@@ -11,9 +11,10 @@ import RecurringFeeding from "./src/types/recurringFeeding";
 // this is a custom class used to handle TypeORM in the serverless environment
 export class Database {
   private connectionManager: ConnectionManager;
-
-  constructor() {
+  private mock: boolean;
+  constructor(mock?: boolean) {
     this.connectionManager = getConnectionManager();
+    this.mock = mock;
   }
 
   public async getConnection(): Promise<Connection> {
@@ -33,14 +34,25 @@ export class Database {
     // otherwise create a new connection to the database using the data stored in
     // environment variables
     else {
-      const connectionOptions: ConnectionOptions = {
-        name: CONNECTION_NAME,
-        type: `mongodb`,
-        synchronize: true,
-        logging: true,
-        url: process.env.DB_URL,
-        entities: [Feeding, RecurringFeeding],
-      };
+      let connectionOptions: ConnectionOptions;
+      if (!this.mock) {
+        connectionOptions = {
+          name: CONNECTION_NAME,
+          type: `mongodb`,
+          synchronize: true,
+          logging: true,
+          url: process.env.DB_URL,
+          entities: [Feeding, RecurringFeeding],
+        };
+      } else {
+        connectionOptions = {
+          type: "sqlite",
+          database: ":memory:",
+          dropSchema: true,
+          synchronize: true,
+          entities: [Feeding, RecurringFeeding],
+        };
+      }
       connection = await createConnection(connectionOptions);
     }
 
