@@ -3,12 +3,12 @@
     "lib": ["es2017", "esnext.asynciterable"],
     "removeComments": true,
     "moduleResolution": "node",
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
     "sourceMap": true,
     "target": "es2017",
-    "outDir": "lib",
+    "outDir": "dist",
     "module": "commonjs",
+    "baseUrl": ".",
+    "esModuleInterop": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true
   },
@@ -18,6 +18,7 @@
     ".serverless/**/*",
     ".webpack/**/*",
     "_warmup/**/*",
-    ".vscode/**/*"
+    ".vscode/**/*",
+    "**/*.test.ts"
   ]
 }

@@ -4,10 +4,15 @@
   "description": "Fullstack Developer Selection Test",
   "main": "handler.js",
   "scripts": {
-    "start": "sls offline --httpPort 4000"
+    "dev": "nodemon --exec ts-node index.ts",
+    "build": "tsc",
+    "test": "jest",
+    "start": "node dist/index.js"
   },
   "dependencies": {
-    "apollo-server-lambda": "^2.12.0",
+    "apollo-server-express": "^2.12.0",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
     "graphql": "^14.1.1",
     "mongodb": "^3.5.7",
     "mysql": "^2.18.1",
@@ -20,19 +25,14 @@
     "uuidv4": "^6.0.8"
   },
   "devDependencies": {
-    "@types/aws-lambda": "^8.10.17",
     "@types/graphql": "^14.5.0",
     "@types/jest": "^25.2.1",
     "@types/node": "^10.12.18",
-    "fork-ts-checker-webpack-plugin": "^3.0.1",
-    "jest": "^25.5.4",
-    "serverless-offline": "^6.1.4",
-    "serverless-webpack": "^5.2.0",
+    "nodemon": "^2.0.3",
     "ts-jest": "^25.4.0",
     "ts-loader": "^5.3.3",
-    "typescript": "^3.8.3",
-    "webpack": "^4.29.0",
-    "webpack-node-externals": "^1.7.2"
+    "ts-node": "^8.10.1",
+    "typescript": "^3.8.3"
   },
   "author": "",
   "license": "MIT"
